@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #FFD700; /* الأصفر الخاص بصيانة */
+            --primary-color: #FFD700; /* اللون الأصفر الخاص بصيانة */
             --secondary-color: #333333;
             --bg-color: #F0F2F5;
             --card-bg: #ffffff;
@@ -33,148 +33,163 @@
             flex-direction: column;
         }
 
-        /* تصميم الهيدر الجديد مع اختيار اللغة */
+        /* تصميم الهيدر مع اختيار اللغة والشعار */
         .header {
             background-color: var(--primary-color);
             padding: 20px;
             text-align: center;
-            position: relative;
         }
 
         .lang-toggle {
             display: flex;
             justify-content: center;
-            gap: 5px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
         .lang-btn {
-            background: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(0,0,0,0.1);
-            padding: 6px 15px;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 8px 18px;
+            border-radius: 25px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: bold;
             font-family: 'Tajawal', sans-serif;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
 
         .lang-btn.active {
             background: white;
             color: var(--secondary-color);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transform: scale(1.05);
         }
 
         .logo-box {
             background: white;
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
+            width: 90px;
+            height: 90px;
+            border-radius: 22px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin: 0 auto 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
         .logo-box img {
-            width: 60px;
-            height: auto;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .header h1 {
-            font-size: 22px;
+            font-size: 24px;
             margin: 0;
             color: var(--secondary-color);
+            font-weight: 700;
         }
 
         /* محتوى الاستبيان */
         .content {
-            padding: 25px;
+            padding: 30px 20px;
             flex-grow: 1;
         }
 
         .form-title {
             text-align: center;
-            font-size: 18px;
-            margin-bottom: 25px;
-            line-height: 1.5;
+            margin-bottom: 30px;
         }
+
+        .form-title b { font-size: 20px; display: block; margin-bottom: 8px; }
+        .form-title small { color: #777; font-size: 15px; }
 
         .radio-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 30px;
         }
 
         .radio-option {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 12px;
+            background: #ffffff;
+            padding: 18px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             cursor: pointer;
-            border: 1px solid #eee;
-            transition: 0.2s;
+            border: 2px solid #f0f0f0;
+            transition: all 0.2s ease;
         }
 
-        .radio-option:hover { border-color: var(--primary-color); }
+        .radio-option:hover { border-color: var(--primary-color); background: #fffdf0; }
 
-        [dir="rtl"] .radio-option input { margin-left: 12px; }
-        [dir="ltr"] .radio-option input { margin-right: 12px; }
+        [dir="rtl"] .radio-option input { margin-left: 15px; }
+        [dir="ltr"] .radio-option input { margin-right: 15px; }
 
-        .radio-option input { transform: scale(1.3); accent-color: var(--secondary-color); }
+        .radio-option input { transform: scale(1.4); accent-color: var(--secondary-color); }
 
         .hidden { display: none; }
         
         .input-field {
-            margin-top: 15px;
-            animation: slideDown 0.3s ease;
+            margin-top: 20px;
+            animation: fadeIn 0.4s ease;
+            text-align: inherit;
         }
+
+        .input-field label { display: block; margin-bottom: 10px; font-weight: bold; font-size: 15px; }
 
         input[type="text"], textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 12px;
             font-family: 'Tajawal', sans-serif;
             box-sizing: border-box;
             background: #fff;
+            font-size: 15px;
+            outline: none;
         }
+
+        input[type="text"]:focus, textarea:focus { border-color: var(--primary-color); }
 
         .submit-btn {
             background: var(--primary-color);
             color: var(--secondary-color);
             width: 100%;
-            padding: 16px;
+            padding: 18px;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
+            border-radius: 15px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 20px;
-            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+            transition: transform 0.2s;
         }
+
+        .submit-btn:active { transform: scale(0.98); }
 
         #success-card {
             display: none;
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
         .voucher {
             background: #fff9c4;
             border: 2px dashed #fbc02d;
-            padding: 20px;
-            border-radius: 15px;
-            margin: 20px 0;
-            font-size: 24px;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0;
+            font-size: 32px;
             font-weight: bold;
+            color: #333;
         }
 
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -187,14 +202,14 @@
         </div>
 
         <div class="logo-box">
-            <img src="https://i.ibb.co/VWVm0Xf/327120071-580986630139624-479987494959212358-n.jpg" alt="Syanah Logo">
+            <img src="https://scontent.fdoh6-1.fna.fbcdn.net/v/t39.30808-6/327120071_580986630139624_479987494959212358_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=ipiS-bnrwc8Q7kNvwGzlZth&_nc_oc=AdmMs4osAjZG7aIwtvIizTvvlQqm9CZ5YAHhQ9jJEH64bsNIXqa7P39Km8GMpPYmUQ-w4XgMh43uB41odhUpQukE&_nc_zt=23&_nc_ht=scontent.fdoh6-1.fna&_nc_gid=cWSIaHpTHVv60fhw_i8B_A&oh=00_AfqZoiid--hsiJ2yVgxRGWV-IYDT0JIdAnG7nagXuicefQ&oe=696155A2" alt="Syanah Logo">
         </div>
         <h1 id="ui-title">استبيان صيانه.كوم</h1>
     </div>
 
     <div id="main-content" class="content">
         <div class="form-title">
-            <b id="ui-welcome">يهمنا رأيك لتطوير خدمتنا 🛠️</b><br>
+            <b id="ui-welcome">يهمنا رأيك لتطوير خدمتنا 🛠️</b>
             <small id="ui-subtitle">نأسف لمغادرتك، رأيك يساعدنا لنعود أفضل.</small>
         </div>
 
@@ -203,18 +218,18 @@
                 </div>
 
             <div id="better-app-field" class="hidden input-field">
-                <label id="ui-better-label" style="font-size: 14px; font-weight: bold;"></label>
-                <input type="text" id="app-name">
+                <label id="ui-better-label"></label>
+                <input type="text" id="app-name" placeholder="...">
             </div>
 
             <div id="missing-service-field" class="hidden input-field">
-                <label id="ui-missing-label" style="font-size: 14px; font-weight: bold;"></label>
-                <input type="text" id="service-name">
+                <label id="ui-missing-label"></label>
+                <input type="text" id="service-name" placeholder="...">
             </div>
 
-            <div class="input-field" style="margin-top: 25px;">
-                <label id="ui-notes-label" style="font-size: 14px; font-weight: bold;"></label>
-                <textarea id="notes" rows="3"></textarea>
+            <div class="input-field" style="margin-top: 30px;">
+                <label id="ui-notes-label"></label>
+                <textarea id="notes" rows="3" placeholder="..."></textarea>
             </div>
 
             <button type="submit" id="ui-submit-btn" class="submit-btn">إرسال التقييم</button>
@@ -222,11 +237,11 @@
     </div>
 
     <div id="success-card">
-        <div style="font-size: 50px;">🎁</div>
+        <div style="font-size: 60px;">🎁</div>
         <h2 id="ui-success-title"></h2>
-        <p id="ui-success-msg"></p>
+        <p id="ui-success-msg" style="font-size: 16px; color: #555; line-height: 1.6;"></p>
         <div class="voucher">Back10</div>
-        <p style="font-size: 12px; color: #777;" id="ui-validity">صالح لمدة 3 أشهر</p>
+        <p style="font-size: 14px; color: #888; font-weight: bold;" id="ui-validity"></p>
     </div>
 </div>
 
@@ -247,9 +262,10 @@
             missing_label: "ما هي الخدمة التي كنت تبحث عنها؟",
             notes_label: "ملاحظات إضافية (اختياري)",
             submit_btn: "إرسال التقييم",
+            submitting: "جاري الإرسال...",
             success_title: "شكراً لصراحتك!",
-            success_msg: "تقديراً لوقتك، إليك كود خصم 10% لطلبك القادم:",
-            validity: "صالح لمدة 3 أشهر"
+            success_msg: "تقديراً لوقتك، إليك كود خصم 10% لطلبك القادم من تطبيق صيانة:",
+            validity: "الكود صالح لمدة 3 أشهر"
         },
         en: {
             title: "Syanah.com Survey",
@@ -266,8 +282,9 @@
             missing_label: "Which service were you looking for?",
             notes_label: "Any other notes? (Optional)",
             submit_btn: "Submit Feedback",
+            submitting: "Sending...",
             success_title: "Thank you!",
-            success_msg: "As a token of appreciation, here is 10% off your next order:",
+            success_msg: "As a token of appreciation, here is 10% off your next order via Syanah App:",
             validity: "Valid for 3 months"
         }
     };
@@ -280,7 +297,6 @@
         html.dir = lang === 'ar' ? 'rtl' : 'ltr';
         html.lang = lang;
 
-        // تحديث الأزرار
         document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
         document.getElementById('btn-en').classList.toggle('active', lang === 'en');
 
@@ -316,10 +332,35 @@
 
     document.getElementById('uninstall-survey').addEventListener('submit', function(e) {
         e.preventDefault();
-        // أضف رابط Google Script هنا لاحقاً
-        document.getElementById('main-content').style.display = 'none';
-        document.querySelector('.header').style.display = 'none';
-        document.getElementById('success-card').style.display = 'block';
+        
+        const GOOGLE_SCRIPT_URL = 'ضع_رابط_جوجل_سكريبت_هنا';
+        
+        const submitBtn = document.getElementById('ui-submit-btn');
+        submitBtn.innerText = translations[currentLang].submitting;
+        submitBtn.disabled = true;
+
+        const formData = {
+            language: currentLang,
+            reason: document.querySelector('input[name="reason"]:checked').value,
+            betterAppDetails: document.getElementById('app-name').value || 'N/A',
+            missingServiceDetails: document.getElementById('service-name').value || 'N/A',
+            notes: document.getElementById('notes').value || 'N/A'
+        };
+
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify(formData)
+        }).then(() => {
+            document.getElementById('main-content').style.display = 'none';
+            document.querySelector('.header').style.display = 'none';
+            document.getElementById('success-card').style.display = 'block';
+        }).catch(() => {
+            // كود تجريبي لإظهار النجاح حتى لو لم يتم الربط بعد
+            document.getElementById('main-content').style.display = 'none';
+            document.querySelector('.header').style.display = 'none';
+            document.getElementById('success-card').style.display = 'block';
+        });
     });
 
     setLanguage('ar');

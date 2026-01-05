@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استبيان صيانه.كوم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* تعريف متغيرات الألوان بناءً على الهوية البصرية في الصورة */
+        :root {
+            --primary-color: #FFD700; /* اللون الأصفر */
+            --secondary-color: #333333; /* لون النص الداكن */
+            --bg-color: #F8F9FA; /* لون خلفية الصفحة */
+            --card-bg: #ffffff; /* لون خلفية البطاقة */
+            --text-color: #333;
+            --border-color: #e0e0e0;
+            --input-border-focus: #FFD700;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* تصميم الهيدر الأصفر */
+        .header {
+            background-color: var(--primary-color);
+            padding: 30px 20px;
+            color: var(--secondary-color);
+        }
+
+        .logo-container {
+            background-color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+        }
+
+        .logo-container img {
+            width: 40px;
+            height: auto;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* تصميم محتوى النموذج */
+        .form-content {
+            padding: 30px 25px;
+            text-align: right;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: var(--secondary-color);
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 35px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .required-asterisk {
+            color: #d9534f;
+            margin-left: 3px;
+        }
+
+        /* تصميم خيارات الراديو */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-left: 10px;
+            accent-color: var(--primary-color);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* تصميم حقول الإدخال */
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: var(--input-border-focus);
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        /* الحقول المخفية */
+        .hidden-field {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        /* زر الإرسال */
+        button.submit-btn {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        button.submit-btn:hover {
+            background-color: #e6c200; /* لون أصفر أغمق قليلاً عند التحويم */
+        }
+
+        button.submit-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* شاشة النجاح */
+        #success-card {
+            display: none;
+            background-color: #fff3cd;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid #ffeeba;
+        }
+
+        .success-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            font-size: 15px;
+            color: #856404;
+            line-height: 1.6;
+        }
+
+        .voucher-highlight {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="main-container">
+    <div class="header">
+        <div class="logo-container">
+            <img src="https://via.placeholder.com/40" alt="شعار صيانه.كوم">
+        </div>
+        <h1>استبيان صيانه.كوم</h1>
+    </div>
+
+    <div id="survey-form" class="form-content">
+        <h2>يهمنا رأيك لتطوير خدمتنا 🛠️</h2>
+        <p class="subtitle">نأسف لمغادرتك، رأيك الصادق يساعدنا لنعود أفضل.</p>
+
+        <form id="uninstall-survey">
+            <div class="form-group">
+                <label class="form-label">ما هو سبب حذفك لتطبيق صيانه.كوم؟ <span class="required-asterisk">*</span></label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="reason" value="difficult" required onchange="checkReason()">
+                        تطبيق صعب الاستخدام
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="reason" value="price" required onchange="checkReason()">
+                        لست راضٍ عن الأسعار
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="reason" value="quality" required onchange="checkReason()">
+                        لست راضٍ عن جودة الخدمة المقدمة
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="reason" value="not_needed" required onchange="checkReason()">
+                        لم أعد بحاجة لتطبيق صيانه.كوم
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="reason" value="better_app" required onchange="checkReason()">
+                        وجدت تطبيقاً أفضل
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="reason" value="customer_service" required onchange="checkReason()">
+                        لست راضٍ عن خدمة العملاء
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="reason" value="missing_service" required onchange="checkReason()">
+                        لم أجد الخدمة التي أحتاجها
+                    </label>
+                </div>
+            </div>
+
+            <div id="better-app-field" class="hidden-field form-group">
+                <label class="form-label">يرجى ذكر اسم التطبيق وما الذي ميزه عنا؟</label>
+                <input type="text" id="app-name" placeholder="اكتب إجابتك هنا...">
+            </div>
+
+            <div id="missing-service-field" class="hidden-field form-group">
+                <label class="form-label">ما هي الخدمة التي كنت تبحث عنها ولم تجدها؟</label>
+                <input type="text" id="service-name" placeholder="اكتب إجابتك هنا...">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">هل لديك أي ملاحظات أخرى تود مشاركتها معنا؟ (اختياري)</label>
+                <textarea id="notes" rows="3" placeholder="اكتب ملاحظاتك هنا..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">إرسال التقييم</button>
+        </form>
+    </div>
+
+    <div id="success-card">
+        <div class="success-title">شكراً لصراحتك!</div>
+        <div class="success-message">
+            تقديراً لوقتك، إليك كود الخصم <span class="voucher-highlight">Back10</span> بخصم 10% على طلبك القادم، الكود صالح لمدة 3 أشهر.
+            <br>
+            نتمنى رؤيتك قريباً في صيانه.كوم.
+        </div>
+    </div>
+</div>
+
+<script>
+    // دالة للتحقق من السبب المختار وإظهار الحقول المخفية
+    function checkReason() {
+        const selectedReason = document.querySelector('input[name="reason"]:checked').value;
+        const betterAppField = document.getElementById('better-app-field');
+        const missingServiceField = document.getElementById('missing-service-field');
+        const appNameInput = document.getElementById('app-name');
+        const serviceNameInput = document.getElementById('service-name');
+
+        // إعادة تعيين الحقول (إخفاء وإلغاء القيمة المطلوبة)
+        betterAppField.style.display = 'none';
+        missingServiceField.style.display = 'none';
+        appNameInput.required = false;
+        serviceNameInput.required = false;
+
+        // إظهار الحقل المطلوب بناءً على الاختيار
+        if (selectedReason === 'better_app') {
+            betterAppField.style.display = 'block';
+            appNameInput.required = true; // جعل الحقل مطلوباً
+        } else if (selectedReason === 'missing_service') {
+            missingServiceField.style.display = 'block';
+            serviceNameInput.required = true; // جعل الحقل مطلوباً
+        }
+    }
+
+    // التعامل مع إرسال النموذج
+    document.getElementById('uninstall-survey').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // *** هام: ضع رابط Google Apps Script الخاص بك هنا ***
+        const GOOGLE_SCRIPT_URL = 'رابط_تطبيق_الويب_الخاص_بك_من_جوجل';
+
+        // تجهيز البيانات للإرسال
+        const formData = {
+            reason: document.querySelector('input[name="reason"]:checked').value,
+            betterAppDetails: document.getElementById('app-name').value || 'N/A',
+            missingServiceDetails: document.getElementById('service-name').value || 'N/A',
+            notes: document.getElementById('notes').value || 'N/A'
+        };
+
+        const submitBtn = e.target.querySelector('button');
+        submitBtn.innerText = 'جاري الإرسال...';
+        submitBtn.disabled = true;
+
+        // إرسال البيانات إلى جوجل شيت
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', // ضروري للعمل مع Google Apps Script
+            cache: 'no-cache',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        }).then(() => {
+            // إخفاء النموذج وإظهار شاشة النجاح
+            document.getElementById('survey-form').style.display = 'none';
+            document.getElementById('success-card').style.display = 'block';
+            // إخفاء الهيدر أيضاً لتبقى رسالة الشكر فقط
+            document.querySelector('.header').style.display = 'none';
+        }).catch(error => {
+            alert('حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.');
+            console.error('Error:', error);
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'إرسال التقييم';
+        });
+    });
+</script>
+
+</body>
+</html>

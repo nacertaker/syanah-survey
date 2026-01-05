@@ -1,26 +1,23 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="html-tag">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>استبيان صيانه.كوم</title>
+    <title>Syanah.com Survey</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* تعريف متغيرات الألوان بناءً على الهوية البصرية في الصورة */
         :root {
-            --primary-color: #FFD700; /* اللون الأصفر */
-            --secondary-color: #333333; /* لون النص الداكن */
-            --bg-color: #F8F9FA; /* لون خلفية الصفحة */
-            --card-bg: #ffffff; /* لون خلفية البطاقة */
+            --primary-color: #FFD700;
+            --secondary-color: #333333;
+            --bg-color: #F8F9FA;
+            --card-bg: #ffffff;
             --text-color: #333;
             --border-color: #e0e0e0;
-            --input-border-focus: #FFD700;
         }
 
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
             margin: 0;
             display: flex;
             justify-content: center;
@@ -36,323 +33,248 @@
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
             overflow: hidden;
-            text-align: center;
         }
 
-        /* تصميم الهيدر الأصفر */
+        /* شريط اختيار اللغة */
+        .lang-switcher {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 20px;
+            background: #eee;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .lang-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: bold;
+        }
+
         .header {
             background-color: var(--primary-color);
-            padding: 30px 20px;
-            color: var(--secondary-color);
+            padding: 25px 20px;
+            text-align: center;
         }
 
         .logo-container {
             background-color: white;
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 15px;
+            margin: 0 auto 10px;
         }
 
-        .logo-container img {
-            width: 40px;
-            height: auto;
-        }
+        .logo-container img { width: 35px; }
 
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: bold;
-        }
+        .form-content { padding: 30px 25px; text-align: inherit; }
+        
+        .radio-group { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
+        
+        .radio-option { display: flex; align-items: center; font-size: 14px; cursor: pointer; }
+        
+        /* ضبط المسافات للراديو حسب الاتجاه */
+        [dir="rtl"] .radio-option input { margin-left: 10px; }
+        [dir="ltr"] .radio-option input { margin-right: 10px; }
 
-        /* تصميم محتوى النموذج */
-        .form-content {
-            padding: 30px 25px;
-            text-align: right;
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 20px;
-            color: var(--secondary-color);
-        }
-
-        p.subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 35px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 700;
-            color: var(--secondary-color);
-        }
-
-        .required-asterisk {
-            color: #d9534f;
-            margin-left: 3px;
-        }
-
-        /* تصميم خيارات الراديو */
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .radio-option {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .radio-option input[type="radio"] {
-            margin-left: 10px;
-            accent-color: var(--primary-color);
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        /* تصميم حقول الإدخال */
         input[type="text"], textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 14px;
-            box-sizing: border-box;
-            outline: none;
-            transition: border-color 0.3s;
+            width: 100%; padding: 12px; border: 1px solid var(--border-color);
+            border-radius: 8px; margin-top: 8px; box-sizing: border-box; font-family: 'Tajawal', sans-serif;
         }
 
-        input[type="text"]:focus, textarea:focus {
-            border-color: var(--input-border-focus);
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        /* الحقول المخفية */
-        .hidden-field {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        /* زر الإرسال */
-        button.submit-btn {
+        .submit-btn {
             background-color: var(--primary-color);
-            color: var(--secondary-color);
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            transition: background-color 0.3s;
-            font-family: 'Tajawal', sans-serif;
+            width: 100%; padding: 15px; border: none; border-radius: 8px;
+            font-weight: bold; cursor: pointer; margin-top: 20px; font-family: 'Tajawal', sans-serif;
         }
 
-        button.submit-btn:hover {
-            background-color: #e6c200; /* لون أصفر أغمق قليلاً عند التحويم */
-        }
-
-        button.submit-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        /* شاشة النجاح */
-        #success-card {
-            display: none;
-            background-color: #fff3cd;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid #ffeeba;
-        }
-
-        .success-title {
-            font-size: 22px;
-            font-weight: bold;
-            color: #856404;
-            margin-bottom: 15px;
-        }
-
-        .success-message {
-            font-size: 15px;
-            color: #856404;
-            line-height: 1.6;
-        }
-
-        .voucher-highlight {
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        #success-card { display: none; padding: 40px 20px; text-align: center; background: #fffde7; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<div class="container" id="main-container">
+<div class="container">
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLanguage('ar')">العربية</button>
+        <button class="lang-btn" onclick="setLanguage('en')">English</button>
+    </div>
+
     <div class="header">
         <div class="logo-container">
-            <img src="https://via.placeholder.com/40" alt="شعار صيانه.كوم">
+            <img src="https://via.placeholder.com/40" alt="Syanah Logo">
         </div>
-        <h1>استبيان صيانه.كوم</h1>
+        <h1 id="ui-title">استبيان صيانه.كوم</h1>
     </div>
 
     <div id="survey-form" class="form-content">
-        <h2>يهمنا رأيك لتطوير خدمتنا 🛠️</h2>
-        <p class="subtitle">نأسف لمغادرتك، رأيك الصادق يساعدنا لنعود أفضل.</p>
+        <h2 id="ui-welcome" style="text-align: center;">يهمنا رأيك لتطوير خدمتنا 🛠️</h2>
+        <p id="ui-subtitle" style="text-align: center; color: #666;">نأسف لمغادرتك، رأيك الصادق يساعدنا لنعود أفضل.</p>
 
         <form id="uninstall-survey">
-            <div class="form-group">
-                <label class="form-label">ما هو سبب حذفك لتطبيق صيانه.كوم؟ <span class="required-asterisk">*</span></label>
-                <div class="radio-group">
-                    <label class="radio-option">
-                        <input type="radio" name="reason" value="difficult" required onchange="checkReason()">
-                        تطبيق صعب الاستخدام
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="reason" value="price" required onchange="checkReason()">
-                        لست راضٍ عن الأسعار
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="reason" value="quality" required onchange="checkReason()">
-                        لست راضٍ عن جودة الخدمة المقدمة
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="reason" value="not_needed" required onchange="checkReason()">
-                        لم أعد بحاجة لتطبيق صيانه.كوم
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="reason" value="better_app" required onchange="checkReason()">
-                        وجدت تطبيقاً أفضل
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="reason" value="customer_service" required onchange="checkReason()">
-                        لست راضٍ عن خدمة العملاء
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="reason" value="missing_service" required onchange="checkReason()">
-                        لم أجد الخدمة التي أحتاجها
-                    </label>
+            <label id="ui-q1-label" class="form-label"><b>ما هو سبب حذفك لتطبيق صيانه.كوم؟</b></label>
+            <div class="radio-group" id="reasons-container">
                 </div>
+
+            <div id="better-app-field" class="hidden">
+                <label id="ui-better-app-label" class="form-label">يرجى ذكر اسم التطبيق وما الذي ميزه عنا؟</label>
+                <input type="text" id="app-name">
             </div>
 
-            <div id="better-app-field" class="hidden-field form-group">
-                <label class="form-label">يرجى ذكر اسم التطبيق وما الذي ميزه عنا؟</label>
-                <input type="text" id="app-name" placeholder="اكتب إجابتك هنا...">
+            <div id="missing-service-field" class="hidden">
+                <label id="ui-missing-service-label" class="form-label">ما هي الخدمة التي كنت تبحث عنها؟</label>
+                <input type="text" id="service-name">
             </div>
 
-            <div id="missing-service-field" class="hidden-field form-group">
-                <label class="form-label">ما هي الخدمة التي كنت تبحث عنها ولم تجدها؟</label>
-                <input type="text" id="service-name" placeholder="اكتب إجابتك هنا...">
+            <div style="margin-top: 20px;">
+                <label id="ui-notes-label" class="form-label">ملاحظات إضافية (اختياري)</label>
+                <textarea id="notes" rows="3"></textarea>
             </div>
 
-            <div class="form-group">
-                <label class="form-label">هل لديك أي ملاحظات أخرى تود مشاركتها معنا؟ (اختياري)</label>
-                <textarea id="notes" rows="3" placeholder="اكتب ملاحظاتك هنا..."></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">إرسال التقييم</button>
+            <button type="submit" id="ui-submit-btn" class="submit-btn">إرسال التقييم</button>
         </form>
     </div>
 
     <div id="success-card">
-        <div class="success-title">شكراً لصراحتك!</div>
-        <div class="success-message">
-            تقديراً لوقتك، إليك كود الخصم <span class="voucher-highlight">Back10</span> بخصم 10% على طلبك القادم، الكود صالح لمدة 3 أشهر.
-            <br>
-            نتمنى رؤيتك قريباً في صيانه.كوم.
-        </div>
+        <h2 id="ui-success-title">شكراً لصراحتك!</h2>
+        <p id="ui-success-msg"></p>
     </div>
 </div>
 
 <script>
-    // دالة للتحقق من السبب المختار وإظهار الحقول المخفية
-    function checkReason() {
-        const selectedReason = document.querySelector('input[name="reason"]:checked').value;
-        const betterAppField = document.getElementById('better-app-field');
-        const missingServiceField = document.getElementById('missing-service-field');
-        const appNameInput = document.getElementById('app-name');
-        const serviceNameInput = document.getElementById('service-name');
-
-        // إعادة تعيين الحقول (إخفاء وإلغاء القيمة المطلوبة)
-        betterAppField.style.display = 'none';
-        missingServiceField.style.display = 'none';
-        appNameInput.required = false;
-        serviceNameInput.required = false;
-
-        // إظهار الحقل المطلوب بناءً على الاختيار
-        if (selectedReason === 'better_app') {
-            betterAppField.style.display = 'block';
-            appNameInput.required = true; // جعل الحقل مطلوباً
-        } else if (selectedReason === 'missing_service') {
-            missingServiceField.style.display = 'block';
-            serviceNameInput.required = true; // جعل الحقل مطلوباً
+    const translations = {
+        ar: {
+            title: "استبيان صيانه.كوم",
+            welcome: "يهمنا رأيك لتطوير خدمتنا 🛠️",
+            subtitle: "نأسف لمغادرتك، رأيك الصادق يساعدنا لنعود أفضل.",
+            q1_label: "ما هو سبب حذفك لتطبيق صيانه.كوم؟",
+            reasons: [
+                {id: "difficult", text: "تطبيق صعب الاستخدام"},
+                {id: "price", text: "لست راضٍ عن الأسعار"},
+                {id: "quality", text: "لست راضٍ عن جودة الخدمة"},
+                {id: "not_needed", text: "لم أعد بحاجة للتطبيق"},
+                {id: "better_app", text: "وجدت تطبيقاً أفضل"},
+                {id: "customer_service", text: "لست راضٍ عن خدمة العملاء"},
+                {id: "missing_service", text: "لم أجد الخدمة التي أحتاجها"}
+            ],
+            better_app_label: "يرجى ذكر اسم التطبيق وما الذي ميزه عنا؟",
+            missing_service_label: "ما هي الخدمة التي كنت تبحث عنها؟",
+            notes_label: "ملاحظات إضافية (اختياري)",
+            submit_btn: "إرسال التقييم",
+            submitting: "جاري الإرسال...",
+            success_title: "شكراً لصراحتك!",
+            success_msg: "تقديراً لوقتك، كود الخصم Back10 (خصم 10%) صالح لـ 3 أشهر. نتمنى رؤيتك قريباً!"
+        },
+        en: {
+            title: "Syanah.com Survey",
+            welcome: "Your feedback matters 🛠️",
+            subtitle: "We are sorry to see you go. Your honest feedback helps us improve.",
+            q1_label: "Why did you uninstall Syanah.com?",
+            reasons: [
+                {id: "difficult", text: "App is difficult to use"},
+                {id: "price", text: "Not satisfied with prices"},
+                {id: "quality", text: "Not satisfied with service quality"},
+                {id: "not_needed", text: "I no longer need the app"},
+                {id: "better_app", text: "Found a better app"},
+                {id: "customer_service", text: "Not satisfied with customer service"},
+                {id: "missing_service", text: "Didn't find the service I needed"}
+            ],
+            better_app_label: "Please mention the app name and what's better about it?",
+            missing_service_label: "What service were you looking for?",
+            notes_label: "Additional notes (Optional)",
+            submit_btn: "Submit Feedback",
+            submitting: "Sending...",
+            success_title: "Thank you!",
+            success_msg: "As a token of appreciation, use code Back10 for 10% off your next order (valid for 3 months). See you soon!"
         }
+    };
+
+    let currentLang = 'ar';
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        const html = document.getElementById('html-tag');
+        html.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        html.lang = lang;
+
+        // تحديث حالة الأزرار
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.innerText.toLowerCase().includes(lang === 'en' ? 'eng' : 'عرب'));
+        });
+
+        // تحديث النصوص
+        const t = translations[lang];
+        document.getElementById('ui-title').innerText = t.title;
+        document.getElementById('ui-welcome').innerText = t.welcome;
+        document.getElementById('ui-subtitle').innerText = t.subtitle;
+        document.getElementById('ui-q1-label').innerText = t.q1_label;
+        document.getElementById('ui-better-app-label').innerText = t.better_app_label;
+        document.getElementById('ui-missing-service-label').innerText = t.missing_service_label;
+        document.getElementById('ui-notes-label').innerText = t.notes_label;
+        document.getElementById('ui-submit-btn').innerText = t.submit_btn;
+        document.getElementById('ui-success-title').innerText = t.success_title;
+        document.getElementById('ui-success-msg').innerText = t.success_msg;
+
+        // تحديث خيارات الراديو
+        const container = document.getElementById('reasons-container');
+        container.innerHTML = '';
+        t.reasons.forEach(reason => {
+            container.innerHTML += `
+                <label class="radio-option">
+                    <input type="radio" name="reason" value="${reason.id}" required onchange="checkReason()">
+                    ${reason.text}
+                </label>
+            `;
+        });
     }
 
-    // التعامل مع إرسال النموذج
+    function checkReason() {
+        const selected = document.querySelector('input[name="reason"]:checked').value;
+        document.getElementById('better-app-field').className = (selected === 'better_app') ? '' : 'hidden';
+        document.getElementById('missing-service-field').className = (selected === 'missing_service') ? '' : 'hidden';
+    }
+
     document.getElementById('uninstall-survey').addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // *** هام: ضع رابط Google Apps Script الخاص بك هنا ***
         const GOOGLE_SCRIPT_URL = 'رابط_تطبيق_الويب_الخاص_بك_من_جوجل';
+        
+        const submitBtn = document.getElementById('ui-submit-btn');
+        submitBtn.innerText = translations[currentLang].submitting;
+        submitBtn.disabled = true;
 
-        // تجهيز البيانات للإرسال
         const formData = {
+            language: currentLang, // نرسل اللغة أيضاً لجوجل شيت
             reason: document.querySelector('input[name="reason"]:checked').value,
             betterAppDetails: document.getElementById('app-name').value || 'N/A',
             missingServiceDetails: document.getElementById('service-name').value || 'N/A',
             notes: document.getElementById('notes').value || 'N/A'
         };
 
-        const submitBtn = e.target.querySelector('button');
-        submitBtn.innerText = 'جاري الإرسال...';
-        submitBtn.disabled = true;
-
-        // إرسال البيانات إلى جوجل شيت
         fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
-            mode: 'no-cors', // ضروري للعمل مع Google Apps Script
-            cache: 'no-cache',
-            headers: { 'Content-Type': 'application/json' },
+            mode: 'no-cors',
             body: JSON.stringify(formData)
         }).then(() => {
-            // إخفاء النموذج وإظهار شاشة النجاح
             document.getElementById('survey-form').style.display = 'none';
+            document.getElementById('header').style.display = 'none'; // اختياري إخفاء الهيدر
             document.getElementById('success-card').style.display = 'block';
-            // إخفاء الهيدر أيضاً لتبقى رسالة الشكر فقط
-            document.querySelector('.header').style.display = 'none';
-        }).catch(error => {
-            alert('حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.');
-            console.error('Error:', error);
-            submitBtn.disabled = false;
-            submitBtn.innerText = 'إرسال التقييم';
         });
     });
+
+    // التشغيل الأول
+    setLanguage('ar');
 </script>
 
 </body>
